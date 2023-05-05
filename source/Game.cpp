@@ -2,15 +2,20 @@
 // Created by Maks Krywionek on 02/05/2023.
 //
 
+#include <vector>
 #include "../headers/Game.h"
 
 
 Color Game::green = {173, 204, 96, 255};
 Color Game::darkGreen = {43, 51, 24, 255};
 
-const int Game::cellSize = 30;
+const int Game::cellSize = 25;
 const int Game::cellCount = 25;
 const int Game::offset = 50;
+
+int Game::score = 0;
+std::deque<ShadowSnake> Game::shadowSnakes = {};
+
 
 Game::Game(std::string title) {
 
@@ -21,40 +26,34 @@ Game::Game(std::string title) {
 
     lastUpdateTime = 0;
 
-    board = Board(this-> cellSize, this->cellCount, this->offset);
     snake = Snake();
     food = Food();
     food.setPos(food.genereRandomPos(snake.getBody()));
+    food.loadImage();
+    shadowSnakes = {};
 }
 Game::~Game() noexcept {
+    food.unloadImage();
     CloseWindow();
 }
 
-int Game::getCellSize() {
-    return this->cellSize;
-}
-
-int Game::getCellCount() {
-    return this->cellCount;
-}
-
-int Game::getOffset() {
-    return this->offset;
-}
-
 void Game::draw() {
-    food.draw();
+    Board::draw();
     snake.draw();
-    board.draw();
+    for(int i = 0; i < shadowSnakes.size(); i++) {
+        shadowSnakes[i].draw();
+    }
+    food.draw();
 }
 
 void Game::update() {
     if(running) {
         snake.move();
+        for(int i = 0; i < shadowSnakes.size(); i++) {
+            shadowSnakes[i].move();
+        }
         checkCollisions();
     }
-
-
 }
 
 void Game::tick() {
@@ -101,12 +100,18 @@ void Game::checkCollisions() {
     snakeWithFood();
     snakeWithTail();
     snakeWithEdge();
+    snakeWithOtherSnakes();
+
+
+
 }
 
 void Game::snakeWithFood() {
     if(snake.getBody()[0] == food.getPos()) {
         food.setPos(food.genereRandomPos(snake.getBody()));
         snake.setSegment(true);
+        score++;
+        shadowSnakes.push_back(ShadowSnake(snake.getTrace(), snake.getBody().size()));
     }
 }
 
@@ -118,6 +123,14 @@ void Game::snakeWithTail() {
         gameOver();
     }
 }
+
+void Game::snakeWithOtherSnakes() {
+    for(int i = 0; i < shadowSnakes.size(); i++) {
+        if(Vec2<int>::elementInDeque(snake.getBody()[0], shadowSnakes[i].getBody())) {
+            gameOver();
+        }
+    }
+ }
 
 void Game::snakeWithEdge() {
     if(snake.getBody()[0].getX() == cellCount || snake.getBody()[0].getX() == -1) {
@@ -132,6 +145,10 @@ void Game::gameOver() {
     snake.reset();
     food.genereRandomPos(snake.getBody());
     running = false;
+    score = 0;
+    shadowSnakes = {};
 }
+
+
 
 

@@ -10,15 +10,12 @@
 
 class Board{
 public:
-    Board();
-    Board(int cellSize, int cellCount, int offset);
+    static void draw();
+    static void drawTexture2D(Texture2D texture2D, int posX, int posY);
+    static void drawRect(int posX, int posY, Color color);
 
-    void draw();
+    static Vec2<int> genereRandomCell();
 
-private:
-    int cellSize;
-    int cellCount;
-    int offset;
 };
 
 

@@ -12,12 +12,13 @@ class Food : public GameObject{
 public:
     Food();
 
+    void loadImage();
+    void unloadImage();
+
     void draw();
     Vec2<int> genereRandomPos(std::deque<Vec2<int>> snakeBody);
 private:
-    Vec2<int> genereteRandomCell();
-
-
+    Texture2D apple;
     std::deque<Vec2<int>> snakeBody;
 };
 

@@ -23,3 +23,7 @@ void GameObject::setPosY(int y) {
     this->pos.setY(y);
 }
 
+void GameObject::printPos() {
+    std::cout << "x: " << this->getPosX() << " y: " << this->getPosY() << std::endl;
+}
+

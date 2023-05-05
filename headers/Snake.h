@@ -22,13 +22,17 @@ public:
     void setSegment(bool addSegment);
 
     std::deque<Vec2<int>> getBody() const;
+    std::deque<Vec2<int>> getTrace() const;
 
     void reset();
 
 private:
+    std::deque<Vec2<int>> trace;
     std::deque<Vec2<int>> body;
     Vec2<int> direction;
     bool addSegment;
+
+    Color skinColor;
 
 };
 

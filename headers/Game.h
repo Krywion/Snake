@@ -11,50 +11,53 @@
 #include "Snake.h"
 #include "Food.h"
 #include "Board.h"
+#include "ShadowSnake.h"
 
 
-class Game {
+class Game{
 public:
+    friend class Board;
+
     Game(std::string title);
     ~Game() noexcept;
+    Game (Game &other) = delete;
+    void operator=(const Game &) = delete;
 
-    int getCellSize();
-    int getCellCount();
-    int getOffset();
 
     void tick();
+    static std::deque<ShadowSnake> shadowSnakes;
+private:
+    bool running;
+    double lastUpdateTime;
+
+    bool eventTriggered(double interval);
+
+    void checkCollisions();
+
+    void snakeWithEdge();
+    void snakeWithFood();
+    void snakeWithTail();
+
     void keyHandler();
+    void draw();
+    void update();
+
+    Snake snake;
+    Food food;
+
+    void gameOver();
 
     const static int cellSize;
     const static int cellCount;
     const static int offset;
 
+    static int score;
+
     static Color green;
     static Color darkGreen;
-private:
-
-    bool eventTriggered(double interval);
-    void checkCollisions();
-
-    bool running;
-    void draw();
-    void update();
 
 
-    Board board;
-    Snake snake;
-    Food food;
-
-    double lastUpdateTime;
-
-
-    void snakeWithFood();
-
-    void snakeWithTail();
-
-    void gameOver();
-
-    void snakeWithEdge();
+    void snakeWithOtherSnakes();
 };
 
 
