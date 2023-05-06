@@ -7,23 +7,18 @@
 
 const Color ShadowSnake::skinColor = GRAY;
 
-ShadowSnake::ShadowSnake(std::deque<Vec2<int>> trace, int maxBodySize) : trace(trace), maxBodySize(maxBodySize){
+ShadowSnake::ShadowSnake(std::deque<Vec2<int>> trace, int maxBodySize) : trace(trace) {
     maxBodySize = (maxBodySize/3) + 1;
     for(int i = 0; i < maxBodySize; i++) {
-        body.push_back(Vec2<int>{trace[i].getX(), trace[i].getY()});
+        body.emplace_back(trace[i].getX(), trace[i].getY());
     }
-    for(int i = 0; i < trace.size(); i++) {
-    }
-    std::cout << "Utworzono ducha...\n";
-}
-ShadowSnake::~ShadowSnake() {
-    std::cout << "Usunięto ducha...\n";
+
 }
 
 void ShadowSnake::draw() {
-    for(unsigned int i = 0; i < body.size(); i++) {
-        int posX = body[i].getX();
-        int posY = body[i].getY();
+    for(auto cell : body) {
+        int posX = cell.getX();
+        int posY = cell.getY();
         Board::drawRect(posX, posY, skinColor);
     }
 }
@@ -37,10 +32,9 @@ void ShadowSnake::move() {
         } else {
             Game::shadowSnakes.pop_front();
         }
-
 }
 
-std::deque<Vec2<int>> ShadowSnake::getBody() const {
+std::deque<Vec2<int>> ShadowSnake::getBody() {
     return this->body;
 }
 

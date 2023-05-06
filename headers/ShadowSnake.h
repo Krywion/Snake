@@ -13,22 +13,18 @@
 class ShadowSnake : public Snake{
 public:
     ShadowSnake(std::deque<Vec2<int>> trace, int maxBodySize);
-    ~ShadowSnake();
+    ~ShadowSnake() = default;
     void draw() override;
-    void move();
+    void move() override;
 
-    std::deque<Vec2<int>> getBody() const;
+    std::deque<Vec2<int>> getBody();
 
 private:
 
     std::deque<Vec2<int>> trace;
     std::deque<Vec2<int>> body;
 
-    int maxBodySize;
-
     static const Color skinColor;
-
-    void reset();
 };
 
 

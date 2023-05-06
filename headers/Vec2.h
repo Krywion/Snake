@@ -11,7 +11,7 @@ template <typename T>
 class Vec2 {
 public:
     Vec2() = default;
-    Vec2(T x, T y) : x(x), y(y) {
+    constexpr Vec2(T x, T y) : x(x), y(y) {
 
     }
     static bool elementInDeque(Vec2<T> vec, std::deque<Vec2<T>> deque) {
@@ -29,37 +29,37 @@ public:
     constexpr void setY(T y) { this->y = y;};
 
 public:
-    bool operator==(const Vec2& rhs) {
+    constexpr bool operator==(const Vec2& rhs) {
         return (x == rhs.x && y == rhs.y);
     }
-    bool operator!=(const Vec2& rhs) {
+    constexpr bool operator!=(const Vec2& rhs) {
         return !(*this == rhs);
     }
-    Vec2 operator+(const Vec2& rhs) const {
+    constexpr Vec2 operator+(const Vec2& rhs) const {
         return {x + rhs.x, y + rhs.y};
     }
-    Vec2 operator+(const int rhs) const{
+    constexpr Vec2 operator+(const int rhs) const{
         return {x + rhs, y + rhs};
     }
-    Vec2& operator +=(const Vec2& rhs) {
+    constexpr Vec2& operator +=(const Vec2& rhs) {
         return *this = *this + rhs;
     }
-    Vec2 operator-(const Vec2& rhs) const {
+    constexpr Vec2 operator-(const Vec2& rhs) const {
         return {x - rhs.x, y - rhs.y};
     }
-    Vec2 operator-(const int rhs) const {
+    constexpr Vec2 operator-(const int rhs) const {
         return {x - rhs, y - rhs};
     }
-    Vec2& operator -=(const Vec2& rhs) {
+    constexpr Vec2& operator -=(const Vec2& rhs) {
         return *this = *this - rhs;
     }
-    Vec2 operator*(const Vec2& rhs) const{
+    constexpr Vec2 operator*(const Vec2& rhs) const{
         return {x * rhs.x, y * rhs.y};
     }
-    Vec2 operator*(const int rhs) const{
+    constexpr Vec2 operator*(const int rhs) const{
         return {x * rhs, y * rhs};
     }
-    Vec2& operator *=(const Vec2& rhs) {
+    constexpr Vec2& operator *=(const Vec2& rhs) {
         return *this = *this * rhs;
     }
 

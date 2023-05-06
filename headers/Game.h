@@ -12,13 +12,14 @@
 #include "Food.h"
 #include "Board.h"
 #include "ShadowSnake.h"
+#include "fstream"
 
 
 class Game{
 public:
     friend class Board;
 
-    Game(std::string title);
+    explicit Game(const std::string& title);
     ~Game() noexcept;
     Game (Game &other) = delete;
     void operator=(const Game &) = delete;
@@ -37,6 +38,7 @@ private:
     void snakeWithEdge();
     void snakeWithFood();
     void snakeWithTail();
+    void snakeWithOtherSnakes();
 
     void keyHandler();
     void draw();
@@ -46,18 +48,23 @@ private:
     Food food;
 
     void gameOver();
+    void gamePause();
+
+    static int loadBestScore();
+    static void saveBestScore();
 
     const static int cellSize;
     const static int cellCount;
     const static int offset;
 
     static int score;
+    static int bestScore;
 
     static Color green;
     static Color darkGreen;
 
 
-    void snakeWithOtherSnakes();
+
 };
 
 

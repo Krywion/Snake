@@ -16,9 +16,9 @@ Snake::Snake() {
 
 void Snake::draw() {
 
-    for(unsigned int i = 0; i < body.size(); i++) {
-        int posX = body[i].getX();
-        int posY = body[i].getY();
+    for(auto cell : body) {
+        int posX = cell.getX();
+        int posY = cell.getY();
         Board::drawRect(posX, posY, skinColor);
     }
 }
@@ -63,5 +63,3 @@ void Snake::reset() {
     trace = {};
     direction = {1, 0};
 }
-
-

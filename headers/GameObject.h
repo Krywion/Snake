@@ -18,14 +18,9 @@ public:
     virtual Vec2<int> getPos() const;
     virtual void setPos(Vec2<int> pos);
 
-    virtual int getPosX() const;
-    virtual int getPosY() const;
-
-    virtual void setPosX(int x);
-    virtual void setPosY(int y);
 
 private:
-    Vec2<int> pos;
+    Vec2<int> pos{};
 };
 
 

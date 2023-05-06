@@ -8,9 +8,15 @@
 
 void Board::draw() {
     ClearBackground(Game::green);
-    DrawRectangleLinesEx(Rectangle{(float) Game::offset-5, (float) Game::offset-5, (float) Game::cellSize*Game::cellCount+10, (float) Game::cellSize*Game::cellCount+10}, 5, Game::darkGreen);
-    DrawText("Modern Snake", Game::offset - 5, 10, 40, Game::darkGreen);
-    DrawText(TextFormat("%i", Game::score), Game::offset - 5, Game::offset+Game::cellSize*Game::cellCount+10, 40, Game::darkGreen);
+    auto rectangle = Rectangle{(float) Game::offset-5,
+                               (float) Game::offset-5,
+                               (float) (Game::cellSize*Game::cellCount+10),
+                               (float) (Game::cellSize*Game::cellCount+10)};
+    DrawRectangleLinesEx(rectangle, 5, Game::darkGreen);
+
+    DrawText("Modern Snake", 390, Game::offset+Game::cellSize*Game::cellCount+10, 40, Game::darkGreen);
+    DrawText(TextFormat("Best Score: %i", Game::bestScore), Game::offset - 5, Game::offset+Game::cellSize*Game::cellCount+10, 40, Game::darkGreen);
+    DrawText(TextFormat("Score: %i", Game::score), Game::offset - 5, 10, 40, Game::darkGreen);
 }
 
 void Board::drawTexture2D(Texture2D texture2D, int posX, int posY) {
@@ -19,18 +25,15 @@ void Board::drawTexture2D(Texture2D texture2D, int posX, int posY) {
 }
 
 void Board::drawRect(int posX, int posY, Color color) {
-    Rectangle rectangle = Rectangle{(float)Game::offset + posX * Game::cellSize,
-                                    (float) Game::offset + posY * Game::cellSize,
-                                    (float) Game::cellSize,
-                                    (float) Game::cellSize};
+    auto rectangle = Rectangle{(float) (Game::offset + posX * Game::cellSize),
+                               (float) (Game::offset + posY * Game::cellSize),
+                               (float) Game::cellSize,
+                               (float) Game::cellSize};
     DrawRectangleRounded(rectangle, 0.5, 6, color);
 }
 
-Vec2<int> Board::genereRandomCell() {
+Vec2<int> Board::genereteRandomCell() {
     int x = GetRandomValue(0, Game::cellCount -1);
     int y = GetRandomValue(0, Game::cellCount -1);
     return Vec2<int>{x, y};
 }
-
-
-

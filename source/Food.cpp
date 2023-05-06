@@ -5,19 +5,19 @@
 #include "../headers/Food.h"
 #include "../headers/Game.h"
 
-Food::Food() {
-
+Food::Food(std::deque<Vec2<int>> snakeBody) {
+    this->setPos(genereRandomPos(snakeBody));
 }
 
 
 void Food::draw() {
-    Board::drawTexture2D(apple, this->getPosX(), this->getPosY());
+    Board::drawTexture2D(apple, this->getPos().getX(), this->getPos().getY());
 }
 
 Vec2<int> Food::genereRandomPos(std::deque<Vec2<int>> snakeBody) {
-    Vec2<int> position;
+    Vec2<int> position{};
     do {
-        position = Board::genereRandomCell();
+        position = Board::genereteRandomCell();
     } while(Vec2<int>::elementInDeque(position, snakeBody));
     return position;
 }
@@ -29,6 +29,8 @@ void Food::loadImage() {
 void Food::unloadImage() {
     UnloadTexture(this->apple);
 }
+
+
 
 
 

@@ -14,14 +14,14 @@
 class Snake : public GameObject{
 public:
     Snake();
-    void draw();
-    void move();
+    virtual void draw();
+    virtual void move();
 
     Vec2<int> getDirection() const;
     void setDirection(Vec2<int> direction);
     void setSegment(bool addSegment);
 
-    std::deque<Vec2<int>> getBody() const;
+    virtual std::deque<Vec2<int>> getBody() const;
     std::deque<Vec2<int>> getTrace() const;
 
     void reset();

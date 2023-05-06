@@ -10,16 +10,16 @@
 
 class Food : public GameObject{
 public:
-    Food();
+    Food() = default;
+    explicit Food(std::deque<Vec2<int>> snakeBody);
 
     void loadImage();
     void unloadImage();
 
-    void draw();
-    Vec2<int> genereRandomPos(std::deque<Vec2<int>> snakeBody);
+    void draw() override;
+    static Vec2<int> genereRandomPos(std::deque<Vec2<int>> snakeBody);
 private:
     Texture2D apple;
-    std::deque<Vec2<int>> snakeBody;
 };
 
 

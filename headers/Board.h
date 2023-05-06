@@ -14,7 +14,7 @@ public:
     static void drawTexture2D(Texture2D texture2D, int posX, int posY);
     static void drawRect(int posX, int posY, Color color);
 
-    static Vec2<int> genereRandomCell();
+    static Vec2<int> genereteRandomCell();
 
 };
 
