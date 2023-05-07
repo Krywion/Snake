@@ -6,29 +6,35 @@
 #include "../headers/Game.h"
 
 Food::Food(std::deque<Vec2<int>> snakeBody) {
-    this->setPos(genereRandomPos(snakeBody));
+    this->genereRandomPos(snakeBody);
+    this->apple = LoadTexture("../assets/apple.png");
 }
 
+Food::~Food() {
+    UnloadTexture(this->apple);
+}
 
 void Food::draw() {
     Board::drawTexture2D(apple, this->getPos().getX(), this->getPos().getY());
 }
 
-Vec2<int> Food::genereRandomPos(std::deque<Vec2<int>> snakeBody) {
+void Food::genereRandomPos(const std::deque<Vec2<int>>& snakeBody) {
     Vec2<int> position{};
     do {
         position = Board::genereteRandomCell();
-    } while(Vec2<int>::elementInDeque(position, snakeBody));
-    return position;
+    } while(Vec2<int>::elementInDeque(position, snakeBody) &&
+    Vec2<int>::elementInDeque(position, {Vec2{6, 9}, Vec2{5,9}, Vec2{4, 9}}));
+    setPos(position);
+    this->printPos();
 }
 
-void Food::loadImage() {
-    this->apple = LoadTexture("../assets/apple.png");
+void Food::printPos() {
+    std::cout << "[Food] x: " << this->getPos().getX() << " y: " << this->getPos().getY()<< std::endl;
 }
 
-void Food::unloadImage() {
-    UnloadTexture(this->apple);
-}
+
+
+
 
 
 

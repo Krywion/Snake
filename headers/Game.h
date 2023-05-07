@@ -13,14 +13,15 @@
 #include "Board.h"
 #include "ShadowSnake.h"
 #include "fstream"
+#include "Settings.h"
 
 
 class Game{
 public:
     friend class Board;
 
-    explicit Game(const std::string& title);
-    ~Game() noexcept;
+    explicit Game();
+    ~Game() = default;
     Game (Game &other) = delete;
     void operator=(const Game &) = delete;
 

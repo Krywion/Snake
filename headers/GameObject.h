@@ -13,7 +13,7 @@ class GameObject {
 public:
     virtual void draw() = 0;
 
-    virtual void printPos();
+    virtual void printPos() = 0;
 
     virtual Vec2<int> getPos() const;
     virtual void setPos(Vec2<int> pos);

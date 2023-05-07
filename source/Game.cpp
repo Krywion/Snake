@@ -9,35 +9,20 @@
 Color Game::green = {173, 204, 96, 255};
 Color Game::darkGreen = {43, 51, 24, 255};
 
-const int Game::cellSize = 25;
-const int Game::cellCount = 25;
-const int Game::offset = 50;
+const int Game::cellCount = settings::cellCount;
+const int Game::cellSize = settings::cellSize;
+const int Game::offset = settings::offset;
 
 int Game::score = 0;
 int Game::bestScore;
 
 std::deque<ShadowSnake> Game::shadowSnakes = {};
 
-Game::Game(const std::string& title) {
-
-    InitWindow(2 * offset + cellCount * cellSize,
-               2 * offset + cellCount * cellSize,
-               title.c_str());
-    SetTargetFPS(60);
-
+Game::Game() : snake(Snake()), food(snake.getBody()){
     lastUpdateTime = 0;
     running = false;
     bestScore = loadBestScore();
-
-    snake = Snake();
-    food = Food(snake.getBody());
-    food.loadImage();
     shadowSnakes = {};
-
-}
-Game::~Game() noexcept {
-    food.unloadImage();
-    CloseWindow();
 }
 
 void Game::draw() {
@@ -111,7 +96,7 @@ void Game::checkCollisions() {
 
 void Game::snakeWithFood() {
     if(snake.getBody()[0] == food.getPos()) {
-        food.setPos(food.genereRandomPos(snake.getBody()));
+        food.genereRandomPos(snake.getBody());
         snake.setSegment(true);
         score++;
         shadowSnakes.emplace_back(snake.getTrace(), snake.getBody().size());
@@ -163,30 +148,28 @@ void Game::gamePause() {
 }
 
 int Game::loadBestScore() {
-    std::string line;
+
     std::regex pattern("\\d+");
     std::smatch matches;
-    int max = 0, number;
+    int number = 0;
 
     std::ifstream is;
     is.open("../leaderboards.txt");
 
     if(is.is_open()) {
+        std::string line;
         while (getline(is,line))
         {
             if (std::regex_search(line, matches, pattern)) {
                 std::string numberStr = matches.str();
                 number = std::stoi(numberStr);
-                if(number > max) {
-                    max = number;
-                }
             }
         }
     } else {
         std::cout << "Nie udało się otworzyć pliku 1" << std::endl;
     }
     is.close();
-    return max;
+    return number;
 }
 
 void Game::saveBestScore() {

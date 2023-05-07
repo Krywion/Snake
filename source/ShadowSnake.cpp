@@ -7,12 +7,12 @@
 
 const Color ShadowSnake::skinColor = GRAY;
 
+
 ShadowSnake::ShadowSnake(std::deque<Vec2<int>> trace, int maxBodySize) : trace(trace) {
     maxBodySize = (maxBodySize/3) + 1;
     for(int i = 0; i < maxBodySize; i++) {
         body.emplace_back(trace[i].getX(), trace[i].getY());
     }
-
 }
 
 void ShadowSnake::draw() {
@@ -32,9 +32,11 @@ void ShadowSnake::move() {
         } else {
             Game::shadowSnakes.pop_front();
         }
+
 }
 
 std::deque<Vec2<int>> ShadowSnake::getBody() {
     return this->body;
 }
+
 

@@ -12,7 +12,4 @@ void GameObject::setPos(Vec2<int> pos) {
     this->pos = pos;
 }
 
-void GameObject::printPos() {
-    std::cout << "x: " << this->getPos().getX() << " y: " << this->getPos().getY()<< std::endl;
-}
 

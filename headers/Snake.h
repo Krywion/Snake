@@ -14,8 +14,11 @@
 class Snake : public GameObject{
 public:
     Snake();
-    virtual void draw();
+    virtual ~Snake();
+    virtual void draw() override;
     virtual void move();
+
+    virtual void printPos() override;
 
     Vec2<int> getDirection() const;
     void setDirection(Vec2<int> direction);

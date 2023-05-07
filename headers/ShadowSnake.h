@@ -17,12 +17,15 @@ public:
     void draw() override;
     void move() override;
 
+
     std::deque<Vec2<int>> getBody();
 
 private:
 
+
     std::deque<Vec2<int>> trace;
     std::deque<Vec2<int>> body;
+
 
     static const Color skinColor;
 };

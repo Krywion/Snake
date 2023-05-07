@@ -6,12 +6,15 @@
 #include "../headers/Game.h"
 
 
-Snake::Snake() {
-    body = {Vec2{6, 9}, Vec2{5,9}, Vec2{4, 9}};
-    trace = {Vec2{6, 9}, Vec2{5,9}, Vec2{4, 9}};
-    direction = {1, 0};
-    addSegment = false;
-    skinColor = LIME;
+Snake::Snake() : body({Vec2{6, 9}, Vec2{5,9}, Vec2{4, 9}}),
+                 trace({Vec2{6, 9}, Vec2{5,9}, Vec2{4, 9}}),
+                 direction({1, 0}),
+                 addSegment(false),
+                 skinColor(LIME) {
+}
+
+Snake::~Snake() {
+
 }
 
 void Snake::draw() {
@@ -31,6 +34,7 @@ void Snake::move() {
     } else {
         body.pop_back();
     }
+    this->printPos();
 }
 
 Vec2<int> Snake::getDirection() const {
@@ -63,3 +67,9 @@ void Snake::reset() {
     trace = {};
     direction = {1, 0};
 }
+
+void Snake::printPos() {
+    std::cout << "[SNAKE] x: " << this->body[0].getX() << " y: " << this->body[0].getY()<< std::endl;
+}
+
+
