@@ -7,7 +7,12 @@
 
 Food::Food(std::deque<Vec2<int>> snakeBody) {
     this->genereRandomPos(snakeBody);
-    this->apple = LoadTexture("../assets/apple.png");
+    try {
+        this->apple = LoadTexture("../assets/apple.png");
+    } catch (std::exception e) {
+        e.what();
+    }
+
 }
 
 Food::~Food() {

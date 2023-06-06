@@ -11,4 +11,6 @@ namespace settings {
     const int cellSize = 25;
     const int cellCount = 25;
     const int offset = 50;
+
+    const float speed = 0.2;
 }

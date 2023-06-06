@@ -13,8 +13,11 @@ const int Game::cellCount = settings::cellCount;
 const int Game::cellSize = settings::cellSize;
 const int Game::offset = settings::offset;
 
+const float Game::speed = settings::speed;
+
 int Game::score = 0;
 int Game::bestScore;
+
 
 std::deque<ShadowSnake> Game::shadowSnakes = {};
 
@@ -46,7 +49,7 @@ void Game::update() {
 
 void Game::tick() {
     BeginDrawing();
-    if(eventTriggered(0.2)) {
+    if(eventTriggered(speed)) {
         update();
     }
     keyHandler();
@@ -130,8 +133,6 @@ void Game::snakeWithEdge() {
 }
 
 void Game::gameOver() {
-    gamePause();
-    eventTriggered(3);
     snake.reset();
     food.genereRandomPos(snake.getBody());
     running = false;

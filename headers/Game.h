@@ -24,13 +24,12 @@ public:
     ~Game() = default;
     Game (Game &other) = delete;
     void operator=(const Game &) = delete;
-
-
     void tick();
     static std::deque<ShadowSnake> shadowSnakes;
 private:
     bool running;
     double lastUpdateTime;
+    static const float speed;
 
     bool eventTriggered(double interval);
 
